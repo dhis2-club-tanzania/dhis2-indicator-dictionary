@@ -1,0 +1,8 @@
+<div *ngIf="expressionDescription$ | async as expressionDescription">
+  <div *ngIf="expressionDescription && expressionDescription?.status === 500">
+    {{ expressionDescription?.statusText }}
+  </div>
+  <div *ngIf="expressionDescription && !expressionDescription?.status">
+    {{ expressionDescription }}
+  </div>
+</div>

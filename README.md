@@ -1,12 +1,6 @@
-[![Build Status](https://travis-ci.org/hisptz/ngx-seed-app.svg?branch=master)](https://travis-ci.org/hisptz/ngx-seed-app)
-[![dependencies Status](https://status.david-dm.org/gh/dhis2-club-tanzania/dhis2-angular-boilerplate.svg)](https://david-dm.org/dhis2-club-tanzania/dhis2-angular-boilerplate)
-[![devDependencies Status](https://status.david-dm.org/gh/dhis2-club-tanzania/dhis2-angular-boilerplate.svg?type=dev)](https://david-dm.org/dhis2-club-tanzania/dhis2-angular-boilerplate?type=dev)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c1e6408bb367ed969f71/maintainability)](https://codeclimate.com/github/dhis2-club-tanzania/dhis2-angular-boilerplate/maintainability)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+# DHIS2 Indicator Dictionary
 
-# Angular DHIS2 based seed app
-
-Boilerplate codes to fast track developing DHIS2 applications based on Angular framework
+Flexible and Lightweight App that simplify Searching and understanding of Indicators in DHIS2, let you know about the performance, trend and the quality of data for that indicator
 
 ## Prerequisites
 
@@ -19,13 +13,13 @@ Boilerplate codes to fast track developing DHIS2 applications based on Angular f
 Clone repository
 
 ```bash
- git clone https://github.com/dhis2-club-tanzania/dhis2-angular-boilerplate.git
+ git clone git@github.com:dhis2-club-tanzania/dhis2-indicator-dictionary.git
 ```
 
 Navigate to application root folder
 
 ```bash
-cd dhis2-angular-boilerplate
+cd dhis2-indicator-dictionary
 ```
 
 Install all required dependencies for the app
@@ -47,13 +41,13 @@ This command will require proxy-config.json file available in the root of your s
 ```json
 {
   "/api": {
-    "target": "https://play.dhis2.org/2.36/",
+    "target": "https://play.dhis2.org/2.36.9/",
     "secure": "false",
     "auth": "admin:district",
     "changeOrigin": "true"
   },
   "/": {
-    "target": "https://play.dhis2.org/2.36/",
+    "target": "https://play.dhis2.org/2.36.9/",
     "secure": "false",
     "auth": "admin:district",
     "changeOrigin": "true"

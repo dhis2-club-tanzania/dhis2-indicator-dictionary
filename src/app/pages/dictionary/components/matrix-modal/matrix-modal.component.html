@@ -1,0 +1,91 @@
+<div class="matrix-container">
+  <div class="h5">
+    {{ metadataGroup?.name }}
+  </div>
+  <div class="matrix-contents">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 15px">SN</th>
+          <th>Name</th>
+          <th>Short name</th>
+          <th>Description</th>
+          <th>Numerator description</th>
+          <th>Numerator definition</th>
+          <th>Denominator description</th>
+          <th>Denominator definition</th>
+          <th>Created date</th>
+          <th>Updated date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let metadata of metadataGroup[metadataGroup?.key];
+            let count = index
+          "
+        >
+          <td>
+            {{ count + 1 }}
+          </td>
+          <td>
+            {{ metadata?.name }}
+          </td>
+          <td>
+            {{ metadataData[metadata?.id]?.shortName }}
+          </td>
+          <td>
+            {{ metadataData[metadata?.id]?.description }}
+          </td>
+          <td>{{ metadataData[metadata?.id]?.numeratorDescription }}</td>
+          <td>
+            <app-expression-description
+              *ngIf="metadataData[metadata?.id]?.numerator"
+              [expression]="metadataData[metadata?.id]?.numerator"
+            ></app-expression-description>
+          </td>
+          <td>
+            {{ metadataData[metadata?.id]?.denominatorDescription }}
+          </td>
+          <td>
+            <app-expression-description
+              *ngIf="metadataData[metadata?.id]?.denominator"
+              [expression]="metadataData[metadata?.id]?.denominator"
+            ></app-expression-description>
+          </td>
+          <td>
+            {{ metadataData[metadata?.id]?.created | date }}
+          </td>
+          <td>
+            {{ metadataData[metadata?.id]?.lastUpdated | date }}
+          </td>
+          <td>
+            <section>
+              <mat-checkbox></mat-checkbox>
+            </section>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button
+      mat-stroked-button
+      class="ml-2"
+      color="primary"
+      (click)="onDownloadSelectedIndicators($event)"
+    >
+      Download Selectd Indicators
+    </button>
+    <button
+      mat-stroked-button
+      class="ml-2"
+      color="primary"
+      (click)="onDownloadSelectedIndicators($event)"
+    >
+      Export as Excel
+    </button>
+  </div>
+</div>

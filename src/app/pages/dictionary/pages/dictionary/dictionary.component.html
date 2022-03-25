@@ -1,0 +1,12 @@
+<div class="col-12">
+  <div class="dictionary-block">
+    <ngx-dhis2-dictionary-list
+      [metadataIdentifiers]="metadataIdentifiers"
+      [selectedItem]="selectedItem"
+      [dictionaryConfig]="dictionaryConfig"
+      (dictionaryItemId)="dictionaryItemId($event)"
+      (metadataInfo)="metadataInfo($event)"
+      (metadataGroupsInfo)="metadataGroupsInfo($event)"
+    ></ngx-dhis2-dictionary-list>
+  </div>
+</div>

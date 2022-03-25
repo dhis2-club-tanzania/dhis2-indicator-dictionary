@@ -1,0 +1,63 @@
+<div style="margin-top: 70px">
+  <div class="container-fluid">
+    <div class="row w-100" style="position: fixed">
+      <div class="col-8" *ngIf="currentDictionaryPage === 'dictionary'">
+        <h1 style="font-size: 35px; margin-bottom: 10px; text-align: left">
+          <span> Indicator dictionary </span>
+          <span
+            (click)="getSharedLink($event, metadataIdentifiers, 'dictionary')"
+            title="Share"
+            style="cursor: pointer"
+            class="a-s-Ub-A-c no-print ml-2"
+          >
+            <img
+              style="margin-top: -10px; height: 15px"
+              src="assets/icons/share_24.png"
+            />
+          </span>
+          <span style="display: none" id="copied-message">Link copied!</span>
+        </h1>
+      </div>
+      <div class="col-8" *ngIf="currentDictionaryPage !== 'dictionary'">
+        <h1 style="font-size: 35px; margin-bottom: 10px; text-align: left">
+          <span> Matrix </span>
+          <span
+            (click)="getSharedLink($event, metadataIdentifiers, 'matrix')"
+            title="Share"
+            style="cursor: pointer"
+            class="a-s-Ub-A-c no-print ml-2"
+          >
+            <img
+              style="margin-top: -10px; height: 15px"
+              src="assets/icons/share_24.png"
+            />
+          </span>
+          <span style="display: none" id="copied-message">Link copied!</span>
+        </h1>
+      </div>
+      <div class="col-4">
+        <mat-button-toggle-group
+          class="float-right"
+          name="metadataType"
+          aria-label="Favorite Color"
+        >
+          <mat-button-toggle
+            (click)="togglePageType($event, 'dictionary')"
+            value="Dictionary"
+            >Dictionary</mat-button-toggle
+          >
+          <mat-button-toggle
+            (click)="togglePageType($event, 'matrix')"
+            value="Dictionary"
+            >Matrix</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12" style="margin-top: 60px">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div *ngIf="{ metadataGroup: metadataGroup$ | async } as params">
+  <div *ngIf="params?.metadataGroup">
+    <app-matrix-modal
+      [metadataGroup]="params?.metadataGroup"
+    ></app-matrix-modal>
+  </div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="!params?.metadataGroup"
+  ></mat-progress-bar>
+</div>

@@ -1,0 +1,30 @@
+.example-button-row button {
+  margin-right: 5px;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+#copied-message {
+  display: none;
+  margin-left: 15px;
+  margin-bottom: -15px;
+  font-size: 0.7rem;
+  color: #325e80;
+}
+
+.selected-group-btn {
+  border-bottom: solid 2px green;
+  font-weight: 600;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

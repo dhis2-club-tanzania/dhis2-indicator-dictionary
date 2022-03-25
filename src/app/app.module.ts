@@ -8,7 +8,8 @@ import { NgxDhis2MenuModule } from '@iapps/ngx-dhis2-menu';
 import { EffectsModule } from '@ngrx/effects';
 import {
   RouterStateSerializer,
-  StoreRouterConnectingModule, DefaultRouterStateSerializer
+  StoreRouterConnectingModule,
+  DefaultRouterStateSerializer,
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -43,14 +44,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       models: {
         organisationUnits: 'id,level',
         organisationUnitLevels: 'id,level',
-        organisationUnitGroups: 'id'
-      }
+        organisationUnitGroups: 'id',
+      },
     }),
     /**
      * Menu  module
      */
     NgxDhis2MenuModule,
-
     /**
      * Translation module
      */
@@ -58,22 +58,24 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store
      */
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: DefaultRouterStateSerializer,
+    }),
 
     !environment.production ? StoreDevtoolsModule.instrument() : [],
 
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production
-    })
+      enabled: environment.production,
+    }),
   ],
   providers: [{ provide: RouterStateSerializer, useClass: RouteSerializer }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

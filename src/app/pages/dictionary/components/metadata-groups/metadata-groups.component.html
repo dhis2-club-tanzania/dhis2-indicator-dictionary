@@ -1,0 +1,58 @@
+<div
+  class="groups-container"
+  *ngIf="{
+    metadataGroups: metadataGroups$ | async
+  } as params"
+>
+  <div *ngIf="params?.metadataGroups">
+    <table class="table">
+      <thead>
+        <th style="width: 20px">SN</th>
+        <th>Group</th>
+        <th>
+          Count of
+          {{ type === 'indicatorGroups' ? 'Indicators' : 'Program Indicators' }}
+        </th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let metadataGroup of params?.metadataGroups;
+            let count = index
+          "
+        >
+          <td>
+            {{ count + 1 }}
+          </td>
+          <td>
+            {{ metadataGroup?.name }}
+          </td>
+          <td>
+            {{
+              metadataGroup?.indicators
+                ? metadataGroup?.indicators?.length
+                : metadataGroup?.programIndicators
+                ? metadataGroup?.programIndicators?.length
+                : ''
+            }}
+          </td>
+          <th>
+            <div class="d-flex justify-content-end">
+              <button
+                mat-stroked-button
+                (click)="onViewMatrix($event, metadataGroup)"
+              >
+                View matrix
+              </button>
+            </div>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="!params?.metadataGroups"
+  ></mat-progress-bar>
+</div>
