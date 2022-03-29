@@ -34,44 +34,64 @@ export class HomeComponent implements OnInit {
     this.httpClient.get('system/info').subscribe((systemSettings) => {
       this.systemInfo = systemSettings;
     });
-    this.route.params.forEach((params: Params) => {
+    this.currentRoute = localStorage.getItem('dictionaryUrl');
+    if (this.router.url.indexOf('/dictionary') > -1) {
+      this.currentDictionaryPage = 'dictionary';
+      const params = this.route.snapshot.params;
       if (params['selected'] != undefined) {
-        if (params['selected'] == 'all' && !params['ids']) {
+        if (
+          !this.currentRoute &&
+          params['selected'] == 'all' &&
+          !params['ids']
+        ) {
           this.metadataIdentifiers = [];
           this.selectedItem = params['selected'];
           this.currentRoute = 'dictionary/all';
+          localStorage.setItem('dictionaryUrl', this.currentRoute);
           this.router.navigate([this.currentRoute]);
         } else {
-          this.selectedItem = params['selected'];
-          let identifiers = [];
-          params['ids'].split(',').forEach((param) => {
-            identifiers.push(param);
-          });
-          if (this.selectedItem != 'all') {
-            identifiers.push(this.selectedItem);
+          if (!this.currentRoute) {
+            this.selectedItem = params['selected'];
+            let identifiers = [];
+            params['ids'].split(',').forEach((param) => {
+              identifiers.push(param);
+            });
+            if (this.selectedItem != 'all') {
+              identifiers.push(this.selectedItem);
+            }
+            this.metadataIdentifiers = uniq(identifiers);
+            this.currentRoute =
+              'dictionary/' +
+              uniq(identifiers).join(',') +
+              '/selected/' +
+              this.selectedItem;
+          } else {
+            this.selectedItem = params['selected'];
+            let identifiers = [];
+            params['ids'].split(',').forEach((param) => {
+              identifiers.push(param);
+            });
+            if (this.selectedItem != 'all') {
+              identifiers.push(this.selectedItem);
+            }
+            this.metadataIdentifiers = uniq(identifiers);
+            this.currentRoute = this.currentRoute;
           }
-          this.metadataIdentifiers = uniq(identifiers);
-          this.currentRoute =
-            'dictionary/' +
-            uniq(identifiers).join(',') +
-            '/selected/' +
-            this.selectedItem;
+          localStorage.setItem('dictionaryUrl', this.currentRoute);
           this.router.navigate([this.currentRoute]);
         }
       } else {
-        this.metadataIdentifiers = this.metadataIdentifiersArr;
-        this.selectedItem = 'all';
-        this.currentRoute =
-          'dictionary/' +
-          uniq(this.metadataIdentifiers).join(',') +
-          '/selected/' +
-          this.selectedItem;
+        localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       }
-    });
+    } else {
+      this.currentRoute = localStorage.getItem('matrixUrl');
+      this.currentDictionaryPage = 'matrix';
+      this.router.navigate([this.currentRoute]);
+    }
   }
 
-  getSharedLink(event: Event, identifiers: any[], pageType: string): void {
+  getSharedLink(event: Event, pageType: string): void {
     event.stopPropagation();
     if (this.systemInfo) {
       let selBox = document.createElement('textarea');
@@ -79,33 +99,17 @@ export class HomeComponent implements OnInit {
       selBox.style.left = '0';
       selBox.style.top = '0';
       selBox.style.opacity = '0';
-      if (pageType === 'dictionary') {
-        if (identifiers.length > 0) {
-          if (this.systemInfo.instanceBaseUrl) {
-            selBox.value =
-              this.systemInfo.instanceBaseUrl +
-              '/api/apps/Indicator-Dictionary/index.html#/dictionary/' +
-              uniq(identifiers).join(',') +
-              '/selected/' +
-              this.selectedItem;
-          } else {
-            selBox.value =
-              this.systemInfo.contextPath +
-              '/api/apps/Indicator-Dictionary/index.html#/dictionary/' +
-              uniq(identifiers).join(',') +
-              '/selected/' +
-              this.selectedItem;
-          }
-        } else {
-          selBox.value =
-            this.systemInfo.contextPath +
-            '/api/apps/Indicator-Dictionary/index.html#/dictionary/all';
-        }
-      } else {
-        selBox.value =
-          this.systemInfo.contextPath +
-          '/api/apps/Indicator-Dictionary/index.html#/matrix';
-      }
+
+      selBox.value =
+        (this.systemInfo.instanceBaseUrl
+          ? this.systemInfo.instanceBaseUrl
+          : this.systemInfo.contextPath
+          ? this.systemInfo.contextPath
+          : '') +
+        '/api/apps/Indicator-Dictionary/index.html#/' +
+        (pageType === 'dictionary'
+          ? localStorage.getItem('dictionaryUrl')
+          : localStorage.getItem('matrixUrl'));
 
       document.body.appendChild(selBox);
       selBox.focus();
@@ -125,8 +129,19 @@ export class HomeComponent implements OnInit {
 
   togglePageType(event: Event, pageType: string): void {
     event.stopPropagation();
-    console.log(pageType);
-    this.router.navigate(['matrix']);
     this.currentDictionaryPage = pageType;
+    if (pageType === 'matrix') {
+      this.currentRoute = localStorage.getItem('matrixUrl')
+        ? localStorage.getItem('matrixUrl')
+        : 'matrix';
+      localStorage.setItem('matrixUrl', this.currentRoute);
+      this.router.navigate([this.currentRoute]);
+    } else {
+      this.currentRoute = localStorage.getItem('dictionaryUrl')
+        ? localStorage.getItem('dictionaryUrl')
+        : 'dictionary/all';
+      localStorage.setItem('dictionaryUrl', this.currentRoute);
+      this.router.navigate([this.currentRoute]);
+    }
   }
 }

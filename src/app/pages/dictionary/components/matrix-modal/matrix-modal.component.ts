@@ -39,7 +39,9 @@ export class MatrixModalComponent implements OnInit {
     event.stopPropagation();
   }
 
-  onDownloadSelectedIndicators(event: Event): void {
-    event.stopPropagation();
+  download(event: Event, format, category): void {
+    // event.stopPropagation();
+    console.log(format);
+    console.log(category);
   }
 }

@@ -22,6 +22,8 @@ import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
 import { NgxDhis2DictionaryModule } from '@iapps/ngx-dhis2-dictionary';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -47,6 +49,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxDhis2DictionaryModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,
@@ -70,6 +74,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxDhis2DictionaryModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   declarations: [],
 })

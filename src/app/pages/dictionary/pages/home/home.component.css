@@ -28,3 +28,26 @@
     display: none !important;
   }
 }
+
+.toggle-btn {
+  outline: none;
+}
+
+.toggle-btn button {
+  outline: none !important;
+  border: none !important;
+}
+
+.toggle-btn button:hover {
+  outline: none !important;
+}
+
+.toggle-btn:hover {
+  outline: none !important;
+}
+
+.active-toggle-btn {
+  background-color: #e0e0e0;
+  outline: none !important;
+  font-weight: 600;
+}

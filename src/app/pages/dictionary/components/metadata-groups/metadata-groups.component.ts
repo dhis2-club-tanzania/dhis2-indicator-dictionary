@@ -26,7 +26,9 @@ export class MetadataGroupsComponent implements OnInit {
 
   onViewMatrix(event: Event, group: MetadataGroupModel): void {
     event.stopPropagation();
-    this.router.navigate([`matrix/${this.type}/${group?.id}`]);
+    const url = `matrix/${this.type}/${group?.id}`;
+    localStorage.setItem('matrixUrl', url);
+    this.router.navigate([url]);
     // this.dialog.open(MatrixModalComponent, {
     //   width: '100%',
     //   data: {

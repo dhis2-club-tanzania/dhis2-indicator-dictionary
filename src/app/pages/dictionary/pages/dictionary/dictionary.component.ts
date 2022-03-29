@@ -33,14 +33,17 @@ export class DictionaryComponent implements OnInit {
     this.httpClient.get('system/info').subscribe((systemSettings) => {
       this.systemInfo = systemSettings;
     });
-    this.route.params.forEach((params: Params) => {
-      if (params['selected'] != undefined) {
-        if (params['selected'] == 'all' && !params['ids']) {
-          this.metadataIdentifiers = [];
-          this.selectedItem = params['selected'];
-          this.currentRoute = 'dictionary/all';
-          this.router.navigate([this.currentRoute]);
-        } else {
+    const params = this.route.snapshot.params;
+    if (params['selected'] != undefined) {
+      this.currentRoute = localStorage.getItem('dictionaryUrl');
+      if (!this.currentRoute && params['selected'] == 'all' && !params['ids']) {
+        this.metadataIdentifiers = [];
+        this.selectedItem = params['selected'];
+        this.currentRoute = 'dictionary/all';
+        localStorage.setItem('dictionaryUrl', this.currentRoute);
+        this.router.navigate([this.currentRoute]);
+      } else {
+        if (!this.currentRoute) {
           this.selectedItem = params['selected'];
           let identifiers = [];
           params['ids'].split(',').forEach((param) => {
@@ -55,19 +58,34 @@ export class DictionaryComponent implements OnInit {
             uniq(identifiers).join(',') +
             '/selected/' +
             this.selectedItem;
-          this.router.navigate([this.currentRoute]);
+        } else {
+          this.selectedItem = params['selected'];
+          let identifiers = [];
+          params['ids'].split(',').forEach((param) => {
+            identifiers.push(param);
+          });
+          if (this.selectedItem != 'all') {
+            identifiers.push(this.selectedItem);
+          }
+          this.metadataIdentifiers = uniq(identifiers);
+          this.currentRoute = this.currentRoute;
         }
-      } else {
-        this.metadataIdentifiers = this.metadataIdentifiersArr;
-        this.selectedItem = 'all';
-        this.currentRoute =
-          'dictionary/' +
-          uniq(this.metadataIdentifiers).join(',') +
-          '/selected/' +
-          this.selectedItem;
+        localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       }
-    });
+    } else {
+      console.log('params', params);
+      console.log(this.currentRoute);
+      this.metadataIdentifiers = this.metadataIdentifiersArr;
+      this.selectedItem = 'all';
+      this.currentRoute =
+        'dictionary/' +
+        uniq(this.metadataIdentifiers).join(',') +
+        '/selected/' +
+        this.selectedItem;
+      localStorage.setItem('dictionaryUrl', this.currentRoute);
+      this.router.navigate([this.currentRoute]);
+    }
   }
 
   dictionaryItemId(listOfItemsObj: any): void {
@@ -87,9 +105,11 @@ export class DictionaryComponent implements OnInit {
           uniq(identifiers).join(',') +
           '/selected/' +
           listOfItemsObj.selected;
+        localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       } else {
         this.currentRoute = 'dictionary/all';
+        localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       }
     } else {
@@ -109,6 +129,7 @@ export class DictionaryComponent implements OnInit {
         uniq(identifiers).join(',') +
         '/selected/' +
         listOfItemsObj.selected;
+      localStorage.setItem('dictionaryUrl', this.currentRoute);
       this.router.navigate([this.currentRoute]);
     }
   }
