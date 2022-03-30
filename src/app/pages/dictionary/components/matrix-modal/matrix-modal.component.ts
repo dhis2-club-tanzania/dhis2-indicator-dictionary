@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
 
 import * as async from 'async';
@@ -12,7 +13,10 @@ export class MatrixModalComponent implements OnInit {
   @Input() metadataGroup: any;
   metadataData: any = {};
   errors: any = {};
-  constructor(private httpClient: NgxDhis2HttpClientService) {}
+  constructor(
+    private httpClient: NgxDhis2HttpClientService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     async.mapLimit(
@@ -35,8 +39,9 @@ export class MatrixModalComponent implements OnInit {
     );
   }
 
-  onClose(event: Event): void {
-    event.stopPropagation();
+  changeRoute(event: Event, route: string): void {
+    localStorage.setItem('matrixUrl', route);
+    this.router.navigate([route]);
   }
 
   download(event: Event, format, category): void {

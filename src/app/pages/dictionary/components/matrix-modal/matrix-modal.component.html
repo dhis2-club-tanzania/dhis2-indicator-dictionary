@@ -4,7 +4,11 @@
     style="z-index: 1001; position: fixed; background-color: #fff"
   >
     <div class="col-12 d-flex align-items-center mb-3 no-print">
-      <button color="primary" mat-flat-button routerLink="/matrix">
+      <button
+        color="primary"
+        mat-flat-button
+        (click)="changeRoute($event, '/matrix')"
+      >
         <mat-icon>arrow_back</mat-icon>
         <span class="ml-2">BACK TO GROUPS LIST</span>
       </button>
