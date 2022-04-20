@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   metadataIdentifiersArr: any[] = ['all'];
   metadataGroups: MetadataGroupModel[];
   currentDictionaryPage: string = 'dictionary';
-  currentRoute: string;
+  currentRoute: string = 'dictionary/all';
   constructor(
     private store: Store<State>,
     private router: Router,
@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit {
     this.httpClient.get('system/info').subscribe((systemSettings) => {
       this.systemInfo = systemSettings;
     });
-    this.currentRoute = localStorage.getItem('dictionaryUrl');
     if (this.router.url.indexOf('/dictionary') > -1) {
+      this.currentRoute = localStorage.getItem('dictionaryUrl');
       this.currentDictionaryPage = 'dictionary';
       const params = this.route.snapshot.params;
       if (params['selected'] != undefined) {
@@ -84,9 +84,12 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       }
-    } else {
+    } else if (this.router.url.indexOf('/matrixUrl') > -1) {
       this.currentRoute = localStorage.getItem('matrixUrl');
       this.currentDictionaryPage = 'matrix';
+      this.router.navigate([this.currentRoute]);
+    } else {
+      this.currentDictionaryPage = 'dictionary';
       this.router.navigate([this.currentRoute]);
     }
   }

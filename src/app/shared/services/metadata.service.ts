@@ -12,7 +12,12 @@ export class MetadataService {
 
   getMetadataGroups(type: string): Observable<MetadataGroupModel[]> {
     return this.httpClient
-      .get(`${type}.json?fields=id,name,${type.replace('Group', '')}[id,name]`)
+      .get(
+        `${type}.json?paging=false&fields=id,name,${type.replace(
+          'Group',
+          ''
+        )}[id,name]`
+      )
       .pipe(
         map((response) => {
           return response[type].map((metadata) => {
@@ -29,7 +34,7 @@ export class MetadataService {
   getMetadataGroup(type: string, id: string): Observable<MetadataGroupModel> {
     return this.httpClient
       .get(
-        `${type}/${id}.json?fields=id,name,${type.replace(
+        `${type}/${id}.json?paging=false&fields=id,name,${type.replace(
           'Group',
           ''
         )}[id,name]`

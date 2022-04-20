@@ -24,6 +24,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { SearchByNamePipe } from './pipes/search-by-name.pipe';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     MatMenuModule,
     MatIconModule,
+    SearchByNamePipe,
   ],
-  declarations: [],
+  declarations: [SearchByNamePipe],
 })
 export class SharedModule {}

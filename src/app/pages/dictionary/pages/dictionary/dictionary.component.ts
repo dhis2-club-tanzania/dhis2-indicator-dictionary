@@ -74,8 +74,6 @@ export class DictionaryComponent implements OnInit {
         this.router.navigate([this.currentRoute]);
       }
     } else {
-      console.log('params', params);
-      console.log(this.currentRoute);
       this.metadataIdentifiers = this.metadataIdentifiersArr;
       this.selectedItem = 'all';
       this.currentRoute =

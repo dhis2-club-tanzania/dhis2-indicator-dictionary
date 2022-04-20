@@ -13,6 +13,7 @@ import { MatrixModalComponent } from '../matrix-modal/matrix-modal.component';
 })
 export class MetadataGroupsComponent implements OnInit {
   @Input() type: string;
+  searchingText: string;
   metadataGroups$: Observable<MetadataGroupModel[]>;
   constructor(
     private metadataService: MetadataService,
@@ -35,5 +36,9 @@ export class MetadataGroupsComponent implements OnInit {
     //     ...group,
     //   },
     // });
+  }
+
+  applyFilter(event): void {
+    this.searchingText = event?.target?.value;
   }
 }

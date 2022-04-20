@@ -5,4 +5,9 @@
   <div *ngIf="expressionDescription && !expressionDescription?.status">
     {{ expressionDescription }}
   </div>
+
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="!expressionDescription"
+  ></mat-progress-bar>
 </div>

@@ -4,8 +4,10 @@
       [metadataGroup]="params?.metadataGroup"
     ></app-matrix-modal>
   </div>
-  <mat-progress-bar
-    mode="indeterminate"
-    *ngIf="!params?.metadataGroup"
-  ></mat-progress-bar>
+  <div style="margin-top: 10%">
+    <mat-progress-bar
+      mode="indeterminate"
+      *ngIf="!params?.metadataGroup"
+    ></mat-progress-bar>
+  </div>
 </div>
