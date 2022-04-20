@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('dictionaryUrl', this.currentRoute);
         this.router.navigate([this.currentRoute]);
       }
-    } else if (this.router.url.indexOf('/matrixUrl') > -1) {
+    } else if (this.router.url.indexOf('/matrix') > -1) {
       this.currentRoute = localStorage.getItem('matrixUrl');
       this.currentDictionaryPage = 'matrix';
       this.router.navigate([this.currentRoute]);
